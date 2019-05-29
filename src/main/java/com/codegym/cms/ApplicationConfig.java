@@ -1,6 +1,11 @@
 package com.codegym.cms;
 
+import com.codegym.cms.repository.CustomerRepository;
+import com.codegym.cms.repository.impl.CustomerRepositoryImpl;
+import com.codegym.cms.service.CustomerService;
+import com.codegym.cms.service.impl.CustomerServiceImpl;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -43,7 +48,16 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+//    @Autowired
+    @Bean
+    public CustomerRepository customerRepository(){
+        return new CustomerRepositoryImpl();
+    }
 
+    @Bean
+    public CustomerService customerService(){
+        return new CustomerServiceImpl();
+    }
     //config thymeleaf
     @Bean
     public ThymeleafViewResolver viewResolver() {
