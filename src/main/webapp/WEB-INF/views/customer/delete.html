@@ -2,28 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Delete customer</title>
 </head>
 <body>
-<p>
-    <a th:href="@{/customers}">Back to list customer</a>
-</p>
-<th:block th:if="${message}">
-    <p th:text="${message}"></p>
+<th:block th:if="${message} != null">
+    <b th:text="${message}"></b>
 </th:block>
-<table id="customers" border="1px">
-    <thead>
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:object="${customer}">
-        <td th:text="${customer.getFirstName()}"></td>
-        <td th:text="${customer.getLastName()}"></td>
-    </tr>
-    </tbody>
-</table>
+    <p>
+        <a href="/customers">Customer list</a>
+    </p>
+    <form th:action="@{/delete-customer}" th:object="${customer}" method="post">
+        <input th:type="hidden" name="id" th:field="*{id}">
+        <table>
+            <tr>
+                <td>First name:</td>
+                <td th:text="${customer.firstName}"></td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td th:text="${customer.lastName}"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Delete customer"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>
